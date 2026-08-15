@@ -1,0 +1,414 @@
+/* ============================================================
+   Benjamin Trumble — academic site
+   Palette: town-record ledger + meeting-hall wood
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --paper: #f2ede2;        /* aged ledger page */
+  --paper-2: #e9e1d1;       /* slightly deeper panel */
+  --ink: #262119;           /* near-black warm ink */
+  --ink-soft: #52493c;      /* body text */
+  --rule: #c9bea6;          /* hairline rule color */
+  --wood: #6b3f2a;          /* meeting-hall wood, primary accent */
+  --wood-deep: #4a2b1c;     /* hover / emphasis */
+  --brass: #8a7237;         /* secondary accent, brass hardware */
+  --max-w: 760px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Faint page texture via layered gradients — no external image dependency */
+body {
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(139,114,55,0.05), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(107,63,42,0.05), transparent 45%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a {
+  color: var(--wood);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--wood-deep); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+/* ---------------- Header / nav ---------------- */
+
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-name span {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-top: 2px;
+}
+
+nav.site-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
+}
+
+nav.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 3px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+nav.site-nav a:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+nav.site-nav a.active {
+  color: var(--wood);
+  background: var(--paper-2);
+}
+
+/* ---------------- Layout shells ---------------- */
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 56px 24px 100px;
+}
+
+.page-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 38px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.page-lede {
+  font-size: 20px;
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: 640px;
+  margin-bottom: 8px;
+}
+
+hr.rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 40px 0;
+}
+
+section + section { margin-top: 48px; }
+
+/* ---------------- Placeholder editing affordance ---------------- */
+
+.fill {
+  background: rgba(138, 114, 55, 0.13);
+  border: 1px dashed var(--brass);
+  border-radius: 4px;
+  padding: 2px 8px;
+  color: var(--wood-deep);
+  font-style: normal;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88em;
+}
+
+.fill-block {
+  display: block;
+  background: rgba(138, 114, 55, 0.10);
+  border: 1px dashed var(--brass);
+  border-radius: 6px;
+  padding: 14px 16px;
+  color: var(--wood-deep);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 10px 0 20px;
+}
+
+.fill-block strong { color: var(--wood-deep); }
+
+/* ---------------- Hero (home page) ---------------- */
+
+.hero {
+  padding-top: 12px;
+}
+
+.hero-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: 46px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.hero .role {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+
+.hero .role strong { color: var(--ink); font-weight: 600; }
+
+.hero-abstract {
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--wood);
+  padding-left: 20px;
+  margin: 28px 0 32px;
+}
+
+.hero-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--wood);
+  color: var(--wood);
+  transition: all 0.15s ease;
+  display: inline-block;
+}
+.btn:hover { background: var(--wood); color: var(--paper); }
+
+.btn.primary {
+  background: var(--wood);
+  color: var(--paper);
+}
+.btn.primary:hover { background: var(--wood-deep); border-color: var(--wood-deep); }
+
+/* ---------------- Warrant-article numbering (signature device) ---------------- */
+/* Used for any ordered/listed content — echoes town-meeting warrant articles */
+
+.warrant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.warrant-item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.warrant-item:last-child { border-bottom: 1px solid var(--rule); }
+
+.warrant-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--brass);
+  padding-top: 3px;
+}
+
+.warrant-num::before { content: "ART. "; }
+
+.warrant-body h3 {
+  font-size: 19px;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.warrant-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brass);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.warrant-desc {
+  font-size: 16px;
+  color: var(--ink-soft);
+}
+
+.warrant-desc a { font-weight: 500; }
+
+/* ---------------- Section headers ---------------- */
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.section-head h2 {
+  font-size: 24px;
+}
+
+.section-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brass);
+}
+
+/* ---------------- Simple two-column info blocks (About / Contact) ---------------- */
+
+.kv-list {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  margin: 18px 0;
+}
+
+.kv-list dt {
+  color: var(--brass);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+.kv-list dd {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* ---------------- Teaching table-like list ---------------- */
+
+.course-item {
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+}
+.course-item:last-child { border-bottom: 1px solid var(--rule); }
+
+.course-title {
+  font-size: 17px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.course-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--wood);
+  background: rgba(107,63,42,0.09);
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.course-terms {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* ---------------- Footer ---------------- */
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px 24px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brass);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 34px; }
+  .page-title { font-size: 30px; }
+  .warrant-item { grid-template-columns: 44px 1fr; gap: 12px; }
+  .kv-list { grid-template-columns: 1fr; gap: 4px 0; }
+  .kv-list dt { padding-top: 10px; }
+  .site-header-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
