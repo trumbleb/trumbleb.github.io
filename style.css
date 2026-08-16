@@ -6,15 +6,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --paper: #f2ede2;        /* aged ledger page */
+  --pine: #1e3a2f;          /* dominant pine green field */
+  --pine-deep: #142a22;     /* darker pine, header/footer */
+  --pine-line: #2f5544;     /* hairline on pine */
+  --paper: #f2ede2;        /* aged ledger page, content card */
   --paper-2: #e9e1d1;       /* slightly deeper panel */
   --ink: #262119;           /* near-black warm ink */
   --ink-soft: #52493c;      /* body text */
-  --rule: #c9bea6;          /* hairline rule color */
+  --rule: #c9bea6;          /* hairline rule color on paper */
   --wood: #6b3f2a;          /* meeting-hall wood, primary accent */
   --wood-deep: #4a2b1c;     /* hover / emphasis */
-  --brass: #8a7237;         /* secondary accent, brass hardware */
+  --brass: #a68a4a;         /* secondary accent, brass hardware — lifted for pine contrast */
   --max-w: 760px;
+  --rail-w: 220px;
 }
 
 * { box-sizing: border-box; }
@@ -23,7 +27,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--pine);
   color: var(--ink-soft);
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 18px;
@@ -31,12 +35,28 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Faint page texture via layered gradients — no external image dependency */
+/* Subtle depth on the pine field — no external image dependency */
 body {
   background-image:
-    radial-gradient(circle at 15% 10%, rgba(139,114,55,0.05), transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(107,63,42,0.05), transparent 45%);
+    radial-gradient(circle at 12% 8%, rgba(166,138,74,0.07), transparent 42%),
+    radial-gradient(circle at 88% 95%, rgba(0,0,0,0.15), transparent 50%);
   background-attachment: fixed;
+}
+
+.page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1fr var(--rail-w);
+  gap: 40px;
+  align-items: start;
+}
+
+.content-card {
+  background: var(--paper);
+  border-radius: 8px;
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,0.45);
 }
 
 h1, h2, h3 {
@@ -61,17 +81,17 @@ a:focus-visible, button:focus-visible {
 /* ---------------- Header / nav ---------------- */
 
 .site-header {
-  border-bottom: 1px solid var(--rule);
-  background: var(--paper);
+  border-bottom: 1px solid var(--pine-line);
+  background: var(--pine-deep);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 .site-header-inner {
-  max-width: 920px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 22px 24px;
+  padding: 22px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,7 +104,7 @@ a:focus-visible, button:focus-visible {
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.02em;
-  color: var(--ink);
+  color: var(--paper);
   text-decoration: none;
 }
 .site-name span {
@@ -106,7 +126,7 @@ nav.site-nav {
 }
 
 nav.site-nav a {
-  color: var(--ink-soft);
+  color: #cfe0d6;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -116,21 +136,21 @@ nav.site-nav a {
 }
 
 nav.site-nav a:hover {
-  background: var(--paper-2);
-  color: var(--ink);
+  background: var(--pine-line);
+  color: var(--paper);
 }
 
 nav.site-nav a.active {
-  color: var(--wood);
-  background: var(--paper-2);
+  color: var(--brass);
+  background: var(--pine-line);
 }
 
 /* ---------------- Layout shells ---------------- */
 
 main {
   max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 56px 24px 100px;
+  margin: 0;
+  padding: 56px 48px 80px;
 }
 
 .page-eyebrow {
@@ -386,18 +406,101 @@ section + section { margin-top: 48px; }
   color: var(--ink-soft);
 }
 
+/* ---------------- Photo rail (sits beside content card, on the pine field) ---------------- */
+
+.photo-rail {
+  padding-top: 56px;
+  position: sticky;
+  top: 96px;
+}
+
+.photo-frame {
+  width: var(--rail-w);
+  aspect-ratio: 4 / 5;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--pine-deep);
+  border: 1px solid var(--pine-line);
+  box-shadow: 0 18px 40px -16px rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-frame.placeholder {
+  border: 1px dashed var(--brass);
+}
+
+.photo-frame .placeholder-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--brass);
+  text-align: center;
+  padding: 20px;
+}
+
+.photo-frame .placeholder-label code {
+  display: block;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #cfe0d6;
+  background: rgba(255,255,255,0.06);
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+.photo-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #9fb8ac;
+  margin-top: 12px;
+  padding: 0 2px;
+}
+
 /* ---------------- Footer ---------------- */
 
 footer {
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--pine-line);
+  background: var(--pine-deep);
   padding: 32px 24px;
   text-align: center;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: var(--brass);
+  color: #8fa89c;
 }
 
 /* ---------------- Responsive ---------------- */
+
+@media (max-width: 900px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+  }
+  .photo-rail {
+    position: static;
+    padding-top: 0;
+    padding-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .photo-frame {
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+  }
+  .photo-caption { margin-top: 0; }
+}
 
 @media (max-width: 640px) {
   .hero h1 { font-size: 34px; }
@@ -406,6 +509,7 @@ footer {
   .kv-list { grid-template-columns: 1fr; gap: 4px 0; }
   .kv-list dt { padding-top: 10px; }
   .site-header-inner { flex-direction: column; align-items: flex-start; }
+  main { padding: 40px 24px 60px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
